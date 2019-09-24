@@ -40,8 +40,10 @@ RUN apt-get update \
     && curl http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz > ioncube_loaders_lin_x86-64.tar.gz \
     && tar xzf ioncube_loaders_lin_x86-64.tar.gz -C /usr/local \
     && php -i | grep php.ini \
+    && echo 'zend_extension = /usr/local/ioncube/ioncube_loader_lin_7.2.so' >> /etc/php/7.2/cli/php.ini \
     && echo 'zend_extension = /usr/local/ioncube/ioncube_loader_lin_7.2.so' >> /etc/php/7.2/fpm/php.ini \
-    && php -m
+    && php -m \
+    && ln -s /usr/sbin/php-fpm7.2 /usr/sbin/php-fpm
 STOPSIGNAL SIGQUIT
 
 # PHP-FPM packages need a nudge to make them docker-friendly
